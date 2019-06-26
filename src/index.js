@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './assets/common.scss';
+import './assets/reset.css';
+import './config/rem';
+import App from '../src/page/AppRoot/App';
 import * as serviceWorker from './serviceWorker';
+import 'antd-mobile/dist/antd-mobile.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
