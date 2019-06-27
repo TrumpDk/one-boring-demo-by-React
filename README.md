@@ -62,20 +62,20 @@ In order to load antd-mobile components on demand.You have to add a babel plugin
 
 ### How to install it
 run such command `npm install babel-plugin-import --save-dev`
-and add such configuration in you .babelrc file 
-`{`
-    `"plugins": [`
-      `["import", { "libraryName": "antd-mobile", "style": "css" }]`
-    `]`
-`}`
+and add such configuration in your .babelrc file 
+`{
+    "plugins": [
+      ["import", { "libraryName": "antd-mobile", "style": "css" }]
+    ]
+}`
 For more details please view: https://github.com/ant-design/babel-plugin-import
 And at this step,we have last one thing to do.You have to create a file named `config-overrides.js`.And then configure it like this
-`const { override, fixBabelImports } = require('customize-cra');`
-`module.exports = override(`
-    `fixBabelImports('import', {`
-        `libraryName: 'antd-mobile',`
-        `style: 'css',`
-    `}),`
-`);`.
+`const { override, fixBabelImports } = require('customize-cra');
+module.exports = override(
+    fixBabelImports('import', {
+        libraryName: 'antd-mobile',
+        style: 'css',
+    }),
+);`
 Click this link to view detail:https://mobile.ant.design/docs/react/introduce
 After finishing all these steps,now you can have fun.
