@@ -17,7 +17,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "source-map-explorer": "^2.0.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
@@ -26,6 +27,7 @@
     ]
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",

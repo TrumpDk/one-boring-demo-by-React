@@ -7,14 +7,15 @@ export default class Login extends React.Component {
   async submitLogin() {
     const mobile = this.refs.phoneNumber.value;
     const password = this.refs.passwords.value;
-    const { errno, data, errmsg } = await HttpService.postLogin({
+    const { errno, errmsg, data } = await HttpService.postLogin({
+      // object Destructuring
       mobile,
       password
     });
     if (errno === 0) {
       window.localStorage.setItem('token', data.sessionKey);
       window.localStorage.setItem('nideShopUser', data.mobile);
-      this.props.actions.loginSuccess();
+      this.props.setLoginState();
     } else {
       Toast.fail(errmsg, 0.5);
     }

@@ -16,7 +16,7 @@ export default class HttpUtil {
     return new Promise((resolve, reject) => {
       instance
         .get(url, { params, headers: getNewHeaders })
-        .then(data => {
+        .then(({ data }) => {
           if (data.errno === 0) {
             resolve(data.data);
           } else {
@@ -34,15 +34,11 @@ export default class HttpUtil {
     return new Promise((resolve, reject) => {
       instance
         .post(url, { ...params }, { headers: getNewHeaders })
-        .then(data => {
-          if (data.errno === 0) {
-            resolve(data.data);
-          } else {
-            resolve(data);
-          }
+        .then(({ data }) => {
+          resolve(data);
         })
-        .catch(error => {
-          reject({ err: JSON.stringify(error) });
+        .catch(err => {
+          reject({ err: JSON.stringify(err) });
         });
     });
   }
