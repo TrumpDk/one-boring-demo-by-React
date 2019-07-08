@@ -1,15 +1,22 @@
 import React from 'react';
 import { ActivityIndicator } from 'antd-mobile';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 import Login from '../LogIn/LogIn';
 import RouterList from '../../router/RouterList';
 import './App.scss';
+import TabList from '../../component/tabList/tabList';
+
 const tabList = [
-  { icon: 'iconfont icon-caidaniconshouyehui', name: '首页', url: '/home' },
-  { icon: 'iconfont icon-clone', name: '专题', url: '/topic' },
-  { icon: 'iconfont icon-sort', name: '分类', url: '/catelog' },
-  { icon: 'iconfont icon-cart', name: '购物车', url: '/cart' },
-  { icon: 'iconfont icon-mine', name: '我的', url: '/mine' }
+  { icon: 'iconfont icon-caidaniconshouyehui', name: '首页', url: '/Home' },
+  { icon: 'iconfont icon-clone', name: '专题', url: '/Topic' },
+  { icon: 'iconfont icon-sort', name: '分类', url: '/Catelog' },
+  { icon: 'iconfont icon-cart', name: '购物车', url: '/Cart' },
+  { icon: 'iconfont icon-mine', name: '我的', url: '/Mine' }
 ];
 
 function RenderRouterList({
@@ -82,18 +89,25 @@ export default class App extends React.Component {
           animating={this.state.animating}
         />
         {this.state.isLogin ? (
-          <Router>
-            <Route
-              exact
-              path="/"
-              render={() => <Redirect to="/Home"></Redirect>}
-            ></Route>
-            <RenderRouterList
-              routers={RouterList}
-              setAnimationState={this.setAnimationState.bind(this)}
-              setAnimationStateFalse={this.setAnimationStateFalse.bind(this)}
-            ></RenderRouterList>
-          </Router>
+          <>
+            <Router>
+              <Route
+                exact
+                path="/"
+                render={() => <Redirect to="/Home"></Redirect>}
+              ></Route>
+              <Switch>
+                <RenderRouterList
+                  routers={RouterList}
+                  setAnimationState={this.setAnimationState.bind(this)}
+                  setAnimationStateFalse={this.setAnimationStateFalse.bind(
+                    this
+                  )}
+                ></RenderRouterList>
+              </Switch>
+              <TabList tabList={tabList}></TabList>
+            </Router>
+          </>
         ) : (
           <Login setLoginState={this.setLoginState.bind(this)}></Login>
         )}
