@@ -7,10 +7,6 @@ import Header from '../../component/Header/Header';
 import HttpService from '../../http/httpList';
 
 class Categorys extends Component {
-  // constructor(props) {
-  //     super(props);
-  // }
-
   // you can call super implicitly
   state = {
     page: 0,

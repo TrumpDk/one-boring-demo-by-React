@@ -14,7 +14,7 @@ import TabList from '../../component/tabList/tabList';
 const tabList = [
   { icon: 'iconfont icon-caidaniconshouyehui', name: '首页', url: '/Home' },
   { icon: 'iconfont icon-clone', name: '专题', url: '/Topic' },
-  { icon: 'iconfont icon-sort', name: '分类', url: '/Catelog' },
+  { icon: 'iconfont icon-sort', name: '分类', url: '/CateLog' },
   { icon: 'iconfont icon-cart', name: '购物车', url: '/Cart' },
   { icon: 'iconfont icon-mine', name: '我的', url: '/Mine' }
 ];

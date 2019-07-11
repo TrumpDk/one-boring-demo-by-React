@@ -46,6 +46,60 @@ class HttpService {
    *   size: 每页数据量
    * */
   getTopicData = parmas => HttpUtil.get('/topic/list', parmas);
+
+  /*
+   * 根据分类ID获取当前分类信息和子分类
+   * parmas:
+   *   id: 分类Id
+   * */
+  getCatalogMsg = parmas => HttpUtil.get('/catalog/current', parmas);
+
+  /*
+   * 获取在售商品数量
+   * */
+  getSellGoodsCount = parmas => HttpUtil.get('/goods/count', parmas);
+
+  /*
+   * 获取商品详情
+   * /api/goods/detail
+   * parmas:
+   *   id: 商品id
+   * */
+  getGoodsDetail = (parmas = {}) => HttpUtil.get('/goods/detail', parmas);
+
+  /*
+   * 相关商品
+   * /api/goods/related
+   * parmas:
+   *   id: 商品id
+   * */
+  getGoodsRelated = (parmas = {}) => HttpUtil.get('/goods/related', parmas);
+
+  /*
+   * 获取用户购物车商品数量
+   * /api/cart/goodscount
+   * parmas:
+   * */
+  getCartNum = (parmas = {}) => HttpUtil.get('/cart/goodscount', parmas);
+
+  /*
+   * 是否添加到收藏栏
+   * /api/collect/addordelete
+   * parmas:
+   *   typeId: 0：是 、1:否（商品状态）
+   *   valueId: 商品Id
+   * */
+  postDoLikes = parmas => HttpUtil.post('/collect/addordelete', parmas);
+
+  /*
+   * 添加到购物车
+   * /api/cart/add
+   * parmas:
+   *   goodsId: 商品Id
+   *   number: 数量
+   *   productId: 产品价格ID
+   * */
+  postAddCart = parmas => HttpUtil.post('/cart/add', parmas);
 }
 
 export default new HttpService();
