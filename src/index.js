@@ -4,9 +4,21 @@ import './assets/common.scss';
 import './assets/reset.css';
 import './config/rem';
 import App from '../src/page/AppRoot/App';
+import combinedReducers from './redux/reducer';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(
+  combinedReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

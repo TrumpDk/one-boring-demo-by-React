@@ -10,6 +10,8 @@ import Login from '../LogIn/LogIn';
 import RouterList from '../../router/RouterList';
 import './App.scss';
 import TabList from '../../component/tabList/tabList';
+import { connect } from 'react-redux';
+import * as commonActions from '../../redux/action/commonAction';
 
 const tabList = [
   { icon: 'iconfont icon-caidaniconshouyehui', name: '首页', url: '/Home' },
@@ -40,15 +42,7 @@ function RenderRouterList({
   ));
 }
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      animating: true,
-      isLogin: false
-    };
-  }
-
+class App extends React.Component {
   componentWillMount() {
     this.setState({
       animating: true
@@ -81,14 +75,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { isLogIn, animating } = this.props;
     return (
       <div className="AppRoot">
-        <ActivityIndicator
-          toast
-          text="Loading..."
-          animating={this.state.animating}
-        />
-        {this.state.isLogin ? (
+        <ActivityIndicator toast text="Loading..." animating={animating} />
+        {isLogIn ? (
           <>
             <Router>
               <Route
@@ -115,3 +106,17 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  animating: state.commonReducer.isLoading,
+  isLogIn: state.commonReducer.isLogIn
+});
+
+const mapDispatchToProps = dispatch => ({
+  action: () => dispatch(commonActions.showLoading())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

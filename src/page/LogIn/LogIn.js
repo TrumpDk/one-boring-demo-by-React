@@ -2,8 +2,10 @@ import React from 'react';
 import './Login.scss';
 import HttpService from '../../http/httpList';
 import { Button, Toast } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { isLogInSuccessfull } from '../../redux/action/commonAction';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   async submitLogin() {
     const mobile = this.refs.phoneNumber.value;
     const password = this.refs.passwords.value;
@@ -15,7 +17,7 @@ export default class Login extends React.Component {
     if (errno === 0) {
       window.localStorage.setItem('token', data.sessionKey);
       window.localStorage.setItem('nideShopUser', data.mobile);
-      this.props.setLoginState();
+      this.props.isLogInSuccessfull();
     } else {
       Toast.fail(errmsg, 0.5);
     }
@@ -57,3 +59,12 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  isLogInSuccessfull: () => dispatch(isLogInSuccessfull())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);

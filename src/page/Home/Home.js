@@ -5,6 +5,9 @@ import { Carousel } from 'antd-mobile';
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import moreImg from '../../assets/img/icon_go_more.png';
+import { connect } from 'react-redux';
+import * as commonActions from '../../redux/action/commonAction';
+import * as homeAction from '../../redux/action/homeAction';
 
 function Channel({ channel }) {
   if (channel) {
@@ -130,25 +133,18 @@ const CateGoryGoods = ({ categoryList }) => {
 };
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      banner: [],
-      newGoodsList: [],
-      channel: [],
-      hotGoodsList: [],
-      brandList: [],
-      topicList: [],
-      categoryList: []
-    };
-  }
-
   componentDidMount() {
-    this.props.setAnimationState();
+    this.props.showLoadingAnimation();
     this.setDataForHome();
   }
 
   async setDataForHome() {
+    const result = await HttpService.dataForHomePage();
+    this.props.fetchDataForHomepage(result);
+    this.props.hideLoadingAnimation();
+  }
+
+  render() {
     const {
       banner,
       newGoodsList,
@@ -157,24 +153,11 @@ class Home extends React.Component {
       brandList,
       topicList,
       categoryList
-    } = await HttpService.dataForHomePage();
-    this.setState({
-      banner: banner,
-      newGoodsList: newGoodsList,
-      channel: channel,
-      hotGoodsList: hotGoodsList,
-      brandList: brandList,
-      topicList: topicList,
-      categoryList: categoryList
-    });
-    this.props.setAnimationStateFalse();
-  }
-
-  render() {
+    } = this.props.homeData;
     return (
       <Fragment>
         <Carousel autoplay infinite>
-          {this.state.banner.map(item => (
+          {banner.map(item => (
             <div key={item.id} className="img-wrapper">
               <img
                 className="img-container"
@@ -185,20 +168,33 @@ class Home extends React.Component {
           ))}
         </Carousel>
 
-        <Channel channel={this.state.channel}></Channel>
+        <Channel channel={channel}></Channel>
 
-        <BrandList brandList={this.state.brandList}></BrandList>
+        <BrandList brandList={brandList}></BrandList>
 
-        <NewGoods newGoodsList={this.state.newGoodsList}></NewGoods>
+        <NewGoods newGoodsList={newGoodsList}></NewGoods>
 
-        <HotGoods hotGoodsList={this.state.hotGoodsList}></HotGoods>
+        <HotGoods hotGoodsList={hotGoodsList}></HotGoods>
 
-        <TopGoods topicList={this.state.topicList}></TopGoods>
+        <TopGoods topicList={topicList}></TopGoods>
 
-        <CateGoryGoods categoryList={this.state.categoryList}></CateGoryGoods>
+        <CateGoryGoods categoryList={categoryList}></CateGoryGoods>
       </Fragment>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  homeData: state.homeReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+  showLoadingAnimation: () => dispatch(commonActions.showLoading()),
+  hideLoadingAnimation: () => dispatch(commonActions.hideLoading()),
+  fetchDataForHomepage: param => dispatch(homeAction.setDataForHomepage(param))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
