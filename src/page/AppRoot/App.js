@@ -76,6 +76,7 @@ class App extends React.Component {
 
   render() {
     const { isLogIn, animating } = this.props;
+    console.log('aaaa', this.props);
     return (
       <div className="AppRoot">
         <ActivityIndicator toast text="Loading..." animating={animating} />

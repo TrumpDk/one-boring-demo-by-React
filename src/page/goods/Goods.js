@@ -35,7 +35,6 @@ class Goods extends React.Component {
 
   /*获取商品相关信息*/
   async fetchData(id) {
-    const { actions } = this.props;
     try {
       this.props.setAnimationState();
       const data = await HttpService.getGoodsDetail({ id });

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import BrandList from '../../component/barndList/brandList';
-import HttpService from '../../http/httpList';
 import { Carousel } from 'antd-mobile';
 import './Home.scss';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,7 @@ import moreImg from '../../assets/img/icon_go_more.png';
 import { connect } from 'react-redux';
 import * as commonActions from '../../redux/action/commonAction';
 import * as homeAction from '../../redux/action/homeAction';
+import { bindActionCreators } from 'redux';
 
 function Channel({ channel }) {
   if (channel) {
@@ -134,14 +134,15 @@ const CateGoryGoods = ({ categoryList }) => {
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.showLoadingAnimation();
+    // this.props.showLoadingAnimation();
     this.setDataForHome();
   }
 
   async setDataForHome() {
-    const result = await HttpService.dataForHomePage();
-    this.props.fetchDataForHomepage(result);
-    this.props.hideLoadingAnimation();
+    // const result = await HttpService.dataForHomePage();
+    console.log(this.props);
+    this.props.actions.setDataForHomepage();
+    // this.props.hideLoadingAnimation();
   }
 
   render() {
@@ -189,10 +190,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showLoadingAnimation: () => dispatch(commonActions.showLoading()),
-  hideLoadingAnimation: () => dispatch(commonActions.hideLoading()),
-  fetchDataForHomepage: param => dispatch(homeAction.setDataForHomepage(param))
+  actions: bindActionCreators(homeAction, dispatch)
 });
+
+// bindActionCreators can't be used here temporarily
+// showLoadingAnimation: () => dispatch(commonActions.showLoading()),
+// hideLoadingAnimation: () => dispatch(commonActions.hideLoading()),
+// fetchDataForHomepage: () => dispatch(homeAction.fetchData())
 
 export default connect(
   mapStateToProps,

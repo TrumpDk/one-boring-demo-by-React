@@ -1,5 +1,6 @@
 import React from 'react';
 
+// lazyLoadComponent is a thunk functionality
 export default function asyncComponent(lazyLoadComponent) {
   return class AsyncComponent extends React.Component {
     constructor(props) {

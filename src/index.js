@@ -6,13 +6,21 @@ import './config/rem';
 import App from '../src/page/AppRoot/App';
 import combinedReducers from './redux/reducer';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import * as serviceWorker from './serviceWorker';
+import rootSaga from './redux/saga/rootSaga';
+
+const sagaMiddleWare = createSagaMiddleware();
 
 const store = createStore(
   combinedReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(sagaMiddleWare))
 );
+
+sagaMiddleWare.run(rootSaga);
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

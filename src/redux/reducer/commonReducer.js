@@ -8,13 +8,13 @@ const initState = {
 const commonReducer = (state = initState, action) => {
   switch (action.type) {
     case ActionType.SHOW_LOADING_ANIMATION:
-      return Object.assign({}, state, { isLoading: true });
+      return { ...state, isLoading: true };
     case ActionType.HIDE_LOADING_ANIMATION:
-      return Object.assign({}, state, { isLoading: false });
+      return { ...state, isLoading: false };
     case ActionType.LOGIN_SUCCESSFULL:
-      return Object.assign({}, state, { isLogIn: true });
+      return { ...state, isLogIn: true };
     case ActionType.LOGIN_FALIED:
-      return Object.assign({}, state, { isLogIn: false });
+      return { ...state, isLogIn: false };
     default:
       return state;
   }
