@@ -11,15 +11,3 @@ export const hideLoading = () => {
     type: ActionTypes.HIDE_LOADING_ANIMATION
   };
 };
-
-export function isLogInSuccessfull() {
-  return {
-    type: ActionTypes.LOGIN_SUCCESSFULL
-  };
-}
-
-export const isLogInfail = () => {
-  return {
-    type: ActionTypes.LOGIN_FALIED
-  };
-};

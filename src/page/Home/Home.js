@@ -5,7 +5,6 @@ import './Home.scss';
 import { Link } from 'react-router-dom';
 import moreImg from '../../assets/img/icon_go_more.png';
 import { connect } from 'react-redux';
-import * as commonActions from '../../redux/action/commonAction';
 import * as homeAction from '../../redux/action/homeAction';
 import { bindActionCreators } from 'redux';
 
@@ -134,15 +133,11 @@ const CateGoryGoods = ({ categoryList }) => {
 
 class Home extends React.Component {
   componentDidMount() {
-    // this.props.showLoadingAnimation();
     this.setDataForHome();
   }
 
-  async setDataForHome() {
-    // const result = await HttpService.dataForHomePage();
-    console.log(this.props);
+  setDataForHome() {
     this.props.actions.setDataForHomepage();
-    // this.props.hideLoadingAnimation();
   }
 
   render() {

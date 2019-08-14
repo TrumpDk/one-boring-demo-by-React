@@ -1,5 +1,4 @@
 import ActionTypes from './actionType';
-import HttpService from '../../http/httpList';
 
 export const setDataForHomepage = () => {
   return {

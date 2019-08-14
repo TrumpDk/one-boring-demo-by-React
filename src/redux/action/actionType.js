@@ -1,5 +1,6 @@
 export default {
   // logIn status
+  LOGIN_START: 'LOGIN_START',
   LOGIN_FALIED: 'LOGIN_FALIED',
   LOGIN_SUCCESSFULL: 'LOGIN_SUCCESSFULL',
 
